@@ -32,7 +32,7 @@ void VehicleSensorSubscriber::on_range_subscribed(const sensor_msgs::msg::Range 
     geometry_msgs::msg::PointStamped res = geometry_msgs::msg::PointStamped();
     res.header = msg.header;
     // Assumed Range Sensor faces front. if faces down, change to {0.0, 0.0, -msg.range}.
-    tf2::toMsg(_transform*tf2::Vector3{msg.range, 0.0, 0.0}, res.point); // TODO something wrong in coordinate transform
+    tf2::toMsg(_transform * tf2::Vector3{msg.range, 0.0, 0.0}, res.point);
     _pub_range->publish(res);
 }
 
@@ -42,7 +42,7 @@ void VehicleSensorSubscriber::on_lidar_subscribed(const sensor_msgs::msg::PointC
     res.header = msg.header;
     res.width = msg.width;
     res.height = msg.height;
-    
+
     sensor_msgs::PointCloud2Modifier modifier{res};
     modifier.setPointCloud2FieldsByString(1, "xyz");
     modifier.resize(res.width * res.height);
@@ -57,7 +57,7 @@ void VehicleSensorSubscriber::on_lidar_subscribed(const sensor_msgs::msg::PointC
     for (int i = 0; i < msg.width * msg.height; ++i, ++iter_x, ++iter_y, ++iter_z, ++iter_res_x, ++iter_res_y, ++iter_res_z)
     {
         tf2::Vector3 pt{*iter_x, *iter_y, *iter_z};
-        pt = _transform * pt; // TODO something wrong in coordinate transform
+        pt = _transform * pt;
         *iter_res_x = pt.x();
         *iter_res_y = pt.y();
         *iter_res_z = pt.z();
@@ -88,9 +88,9 @@ void VehicleSensorSubscriber::on_depth_subscribed(const sensor_msgs::msg::Image 
         {
             tf2::Vector3 pt;
             pt.setX(*depth);
-            pt.setY(*depth * (_depth_info.k[5] - i) / _depth_info.k[4]);
-            pt.setZ(*depth * (_depth_info.k[2] - j) / _depth_info.k[0]);
-            pt = _transform * pt; // TODO something wrong in coordinate transform
+            pt.setY(*depth * (_depth_info.k[2] - j) / _depth_info.k[0]);
+            pt.setZ(*depth * (_depth_info.k[5] - i) / _depth_info.k[4]);
+            pt = _transform * pt;
             *iter_x = pt.x();
             *iter_y = pt.y();
             *iter_z = pt.z();
