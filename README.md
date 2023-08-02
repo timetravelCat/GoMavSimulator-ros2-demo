@@ -10,7 +10,7 @@ colcon build --merge-install
 ros2 run GoMavSimulator-ros2-demo VehicleSensorSubscriber
 ```
 
-- [TODO Attach Video]
+[![GoMavSimulator](https://res.cloudinary.com/marcomontalbano/image/upload/v1690989582/video_to_markdown/images/google-drive--1glVoOS9Agmiz97uZ9ULsO2GhZks26fbg-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://drive.google.com/file/d/1glVoOS9Agmiz97uZ9ULsO2GhZks26fbg/preview "GoMavSimulator")
 
 ### Install GoMavSimulator
 - Download latest [release](https://github.com/timetravelCat/GoMavSimulator/releases)
